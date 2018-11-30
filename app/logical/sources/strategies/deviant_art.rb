@@ -70,7 +70,8 @@ module Sources
         if api_deviation.blank?
           [url]
         # work is downloadable
-        elsif api_deviation[:is_downloadable] && api_deviation[:download_filesize] != api_deviation.dig(:content, :filesize)
+        elsif api_deviation[:is_downloadable] # && api_deviation[:download_filesize] != api_deviation.dig(:content, :filesize)
+          # the file size from the api is wrong sometimes so we can't rely on it
           src = api_download[:src]
           src.gsub!(%r!\Ahttps?://s3\.amazonaws\.com/!i, "https://")
           src.gsub!(/\?.*\z/, "") # strip s3 query params
